@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<name>Test Mod</name>
+	<id>sleepy:testmod</id>
+	<type>modification</type>
+	<version>1.0</version>
+	
+	<upgrade from="0.9" for="2.1.6-2.1.99">
+		<readme type="file" parsebbc="true">readme.md</readme>
+		<require-file name="Foo.php" destination="$sourcedir" />
+	</upgrade>
+
+	<upgrade from="0.1-0.8" for="2.1.6-2.1.99">
+		<readme type="file" parsebbc="true">readme.md</readme>
+		<require-file name="Foo.php" destination="$sourcedir" />
+	</upgrade>
+
+	<install for="2.1.6-2.1.99">
+		<readme type="file" parsebbc="true">readme.txt</readme>
+		<require-file name="Foo.php" destination="$sourcedir" />
+		<hook hook="integrate_pre_include" function="Bar" File="$sourcedir/Foo.php" />
+	</install>
+
+	<uninstall>
+		<readme type="inline" parsebbc="true">Just some uninstall messages.
+		</readme>
+		<hook hook="integrate_pre_include" function="$sourcedir/Foo.php" reverse="true" />
+		<remove-file name="$sourcedir/Foo.php" />
+	</uninstall>
+
+</package-info>
