@@ -24,3 +24,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ github.TOKEN }}
       shell: bash
+    - name: Mark Published
+      run: |
+        gh release edit ${{github.event.release.tag_name}} --draft=false --latest
+      env:
+        GITHUB_TOKEN: ${{ github.TOKEN }}
+      shell: bash
