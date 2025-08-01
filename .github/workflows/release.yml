@@ -15,15 +15,16 @@ jobs:
       run: |
         wget https://raw.githubusercontent.com/jdarwood007/buildMod/refs/heads/main/build_mod_package.php -O ${{ runner.temp }}/build_mod_package.php
         php ${{ runner.temp }}/build_mod_package.php --src=. --dst=${{ runner.temp }}
-        echo "TGZ_FILE=`ls ${{ runner.temp }}/*.tgz`"  >> $GITHUB_ENV
-        echo "ZIP_FILE=`ls ${{ runner.temp }}/*.zip`"  >> $GITHUB_ENV
+        cd ${{ runner.temp }}
+        echo "TGZ_FILE=`ls *.tgz`" >> $GITHUB_ENV
+        echo "ZIP_FILE=`ls *.zip`" >> $GITHUB_ENV
     - name: Upload TGZ
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ${{ env.TGZ_FILE }}
+        asset_path: ${{ runner.temp }}/${{ env.TGZ_FILE }}
         asset_name: ${{ env.TGZ_FILE }}
         asset_content_type: binary/octet-stream
     - name: Upload ZIP
@@ -32,6 +33,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ${{ env.ZIP_FILE }}
+        asset_path: ${{ runner.temp }}/${{ env.ZIP_FILE }}
         asset_name: ${{ env.ZIP_FILE }}
         asset_content_type: binary/octet-stream
