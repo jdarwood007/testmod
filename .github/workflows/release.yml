@@ -18,8 +18,8 @@ jobs:
         cd ${{ runner.temp }}
         echo "TGZ_FILE=`ls *.tgz`"
         echo "ZIP_FILE=`ls *.zip`"
-        gh release upload ${{github.event.release.tag_name}} $TGZ_FILE
-        gh release upload ${{github.event.release.tag_name}} $ZIP_FILE
+        gh release upload ${{github.event.release.tag_name}} ${{ runner.temp }}/$TGZ_FILE $TGZ_FILE
+        gh release upload ${{github.event.release.tag_name}} ${{ runner.temp }}/$ZIP_FILE $ZIP_FILE
       env:
         GITHUB_TOKEN: ${{ github.TOKEN }}
       shell: bash
