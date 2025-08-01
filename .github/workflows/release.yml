@@ -11,28 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-    - name: Get Resources
+    - name: Build and Upload
       run: |
         wget https://raw.githubusercontent.com/jdarwood007/buildMod/refs/heads/main/build_mod_package.php -O ${{ runner.temp }}/build_mod_package.php
         php ${{ runner.temp }}/build_mod_package.php --src=. --dst=${{ runner.temp }}
         cd ${{ runner.temp }}
-        echo "TGZ_FILE=`ls *.tgz`" >> $GITHUB_ENV
-        echo "ZIP_FILE=`ls *.zip`" >> $GITHUB_ENV
-    - name: Upload TGZ
-      uses: actions/upload-release-asset@e8f9f06c4b078e705bd2ea027f0926603fc9b4d5
+        echo "TGZ_FILE=`ls *.tgz`"
+        echo "ZIP_FILE=`ls *.zip`"
+        gh release upload ${{github.event.release.tag_name}} $TGZ_FILE
+        gh release upload ${{github.event.release.tag_name}} $ZIP_FILE
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ${{ runner.temp }}/${{ env.TGZ_FILE }}
-        asset_name: ${{ env.TGZ_FILE }}
-        asset_content_type: binary/octet-stream
-    - name: Upload ZIP
-      uses: actions/upload-release-asset@e8f9f06c4b078e705bd2ea027f0926603fc9b4d5
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ${{ runner.temp }}/${{ env.ZIP_FILE }}
-        asset_name: ${{ env.ZIP_FILE }}
-        asset_content_type: binary/octet-stream
+        GITHUB_TOKEN: ${{ github.TOKEN }}
+      shell: bash
