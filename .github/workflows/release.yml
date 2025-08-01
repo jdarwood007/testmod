@@ -20,8 +20,8 @@ jobs:
         echo "ZIP_FILE=`ls *.zip`" >> $GITHUB_ENV
     - name: Upload
       run: |
-        gh release upload ${{github.event.release.tag_name}} ${{ runner.temp }}/${{ env.TGZ_FILE }} $TGZ_FILE
-        gh release upload ${{github.event.release.tag_name}} ${{ runner.temp }}/${{ env.ZIP_FILE }} $ZIP_FILE
+        gh release upload ${{github.event.release.tag_name}} ${{ runner.temp }}/${{ env.TGZ_FILE }} ${{ env.TGZ_FILE }}
+        gh release upload ${{github.event.release.tag_name}} ${{ runner.temp }}/${{ env.ZIP_FILE }} ${{ env.ZIP_FILE }}
       env:
         GITHUB_TOKEN: ${{ github.TOKEN }}
       shell: bash
