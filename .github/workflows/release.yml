@@ -4,6 +4,7 @@ on:
   release:
     types:
       - created
+      - edited
 
 jobs:
   Packing:
@@ -18,6 +19,12 @@ jobs:
         cd ${{ runner.temp }}
         echo "TGZ_FILE=`ls *.tgz`" >> $GITHUB_ENV
         echo "ZIP_FILE=`ls *.zip`" >> $GITHUB_ENV
+    - name: Mark Draft
+      run: |
+        gh release edit ${{github.event.release.tag_name}} --draft=true --latest
+      env:
+        GITHUB_TOKEN: ${{ github.TOKEN }}
+      shell: bash
     - name: Upload
       run: |
         gh release upload ${{github.event.release.tag_name}} ${{ runner.temp }}/${{ env.TGZ_FILE }} ${{ runner.temp }}/${{ env.ZIP_FILE }}
