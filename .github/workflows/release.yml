@@ -18,6 +18,7 @@ jobs:
         cd ${{ runner.temp }}
         echo "TGZ_FILE=`ls *.tgz`"
         echo "ZIP_FILE=`ls *.zip`"
+        cd ${{ github.workspace }}
         gh release upload ${{github.event.release.tag_name}} ${{ runner.temp }}/$TGZ_FILE $TGZ_FILE
         gh release upload ${{github.event.release.tag_name}} ${{ runner.temp }}/$ZIP_FILE $ZIP_FILE
       env:
