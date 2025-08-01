@@ -3,8 +3,6 @@ name: Deployment
 on:
   release:
     types:
-      - prereleased
-      - released
       - published
 
 jobs:
