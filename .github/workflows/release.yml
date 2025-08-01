@@ -1,0 +1,36 @@
+name: Deployment
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  dist_linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Get Resources
+      run: |
+        wget https://raw.githubusercontent.com/jdarwood007/buildMod/refs/heads/main/build_mod_package.php -O build_mod_package.php
+        php ../build_mod_package.php --src=. --dst=${{ runner.temp }}
+        echo "TGZ_FILE=`ls ${{ runner.temp }}/*.tgz`"  >> $GITHUB_ENV
+        echo "ZIP_FILE=`ls ${{ runner.temp }}/*.zip`"  >> $GITHUB_ENV
+    - name: Upload TGZ
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ${{ env.TGZ_FILE }}
+        asset_name: oq-${{ github.event.release.tag_name }}-linux-x86_64
+        asset_content_type: binary/octet-stream
+    - name: Upload ZIP
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ${{ env.ZIP_FILE }}
+        asset_name: oq-${{ github.event.release.tag_name }}-linux-x86_64
+        asset_content_type: binary/octet-stream
