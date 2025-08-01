@@ -23,7 +23,7 @@ jobs:
       with:
         upload_url: ${{ github.event.release.upload_url }}
         asset_path: ${{ env.TGZ_FILE }}
-        asset_name: oq-${{ github.event.release.tag_name }}-linux-x86_64
+        asset_name: ${{ env.TGZ_FILE }}
         asset_content_type: binary/octet-stream
     - name: Upload ZIP
       uses: actions/upload-release-asset@v1.0.1
@@ -32,5 +32,5 @@ jobs:
       with:
         upload_url: ${{ github.event.release.upload_url }}
         asset_path: ${{ env.ZIP_FILE }}
-        asset_name: oq-${{ github.event.release.tag_name }}-linux-x86_64
+        asset_name: ${{ env.ZIP_FILE }}
         asset_content_type: binary/octet-stream
