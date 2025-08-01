@@ -12,8 +12,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Get Resources
       run: |
-        wget https://raw.githubusercontent.com/jdarwood007/buildMod/refs/heads/main/build_mod_package.php -O build_mod_package.php
-        php ../build_mod_package.php --src=. --dst=${{ runner.temp }}
+        wget https://raw.githubusercontent.com/jdarwood007/buildMod/refs/heads/main/build_mod_package.php -O ${{ runner.temp }}/build_mod_package.php
+        php ${{ runner.temp }}/build_mod_package.php --src=. --dst=${{ runner.temp }}
         echo "TGZ_FILE=`ls ${{ runner.temp }}/*.tgz`"  >> $GITHUB_ENV
         echo "ZIP_FILE=`ls ${{ runner.temp }}/*.zip`"  >> $GITHUB_ENV
     - name: Upload TGZ
