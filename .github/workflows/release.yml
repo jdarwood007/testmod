@@ -6,7 +6,8 @@ on:
       - created
 
 jobs:
-  dist_linux:
+  Packing:
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
