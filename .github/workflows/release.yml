@@ -10,7 +10,7 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #4.2.2
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
     - name: Get Resources
       run: |
         wget https://raw.githubusercontent.com/jdarwood007/buildMod/refs/heads/main/build_mod_package.php -O ${{ runner.temp }}/build_mod_package.php
