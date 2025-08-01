@@ -10,7 +10,7 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #4.2.2
     - name: Get Resources
       run: |
         wget https://raw.githubusercontent.com/jdarwood007/buildMod/refs/heads/main/build_mod_package.php -O ${{ runner.temp }}/build_mod_package.php
@@ -19,7 +19,7 @@ jobs:
         echo "TGZ_FILE=`ls *.tgz`" >> $GITHUB_ENV
         echo "ZIP_FILE=`ls *.zip`" >> $GITHUB_ENV
     - name: Upload TGZ
-      uses: actions/upload-release-asset@v1.0.1
+      uses: actions/upload-release-asset@e8f9f06c4b078e705bd2ea027f0926603fc9b4d5
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -28,7 +28,7 @@ jobs:
         asset_name: ${{ env.TGZ_FILE }}
         asset_content_type: binary/octet-stream
     - name: Upload ZIP
-      uses: actions/upload-release-asset@v1.0.1
+      uses: actions/upload-release-asset@e8f9f06c4b078e705bd2ea027f0926603fc9b4d5
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
