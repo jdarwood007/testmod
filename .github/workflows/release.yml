@@ -13,7 +13,7 @@ jobs:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
     - name: Build
       run: |
-        wget https://raw.githubusercontent.com/jdarwood007/buildMod/refs/heads/main/build_mod_package.php -O ${{ runner.temp }}/build_mod_package.php
+        wget https://raw.githubusercontent.com/jdarwood007/buildMod/570dc6092cff7a5ecdc517af87b8154a4c69fe15/build_mod_package.php -O ${{ runner.temp }}/build_mod_package.php
         php ${{ runner.temp }}/build_mod_package.php --src=. --dst=${{ runner.temp }}
         cd ${{ runner.temp }}
         echo "TGZ_FILE=`ls *.tgz`" >> $GITHUB_ENV
